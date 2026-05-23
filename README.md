@@ -1,6 +1,6 @@
-# Windows Explorer Web
+# Windows Explorer
 
-A Windows Explorer–like web app delivered as a Bun-workspaces monorepo.
+A Windows Explorer–like delivered as a Bun-workspaces monorepo.
 
 ## Stack
 

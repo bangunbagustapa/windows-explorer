@@ -1,0 +1,28 @@
+{
+  "name": "@windows-explorer/frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Vue 3 + Vite + Tailwind frontend with in-house UI components.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint src",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@windows-explorer/shared": "workspace:*",
+    "vue": "^3.5.13",
+    "pinia": "^2.2.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.5",
+    "vue-tsc": "^2.1.10",
+    "tailwindcss": "^3.4.17",
+    "postcss": "^8.4.49",
+    "autoprefixer": "^10.4.20"
+  }
+}

@@ -53,6 +53,31 @@ A Windows Explorer–like web app delivered as a Bun-workspaces monorepo.
 - `bun run format` — Format code with Prettier
 - `bun run format:check` — Check formatting
 
+## Database setup
+
+1. Configure environment variables for the backend:
+   ```bash
+   cd packages/backend
+   cp .env.example .env
+   # Edit .env with your DATABASE_URL if needed
+   ```
+
+2. Create the PostgreSQL database:
+   ```bash
+   bun run db:setup
+   ```
+
+3. Run database migrations:
+   ```bash
+   bun run db:generate
+   bun run db:migrate
+   ```
+
+4. Seed the database with sample data:
+   ```bash
+   bun run db:seed
+   ```
+
 ## Environment variables
 
 ### Backend (`packages/backend/.env`)

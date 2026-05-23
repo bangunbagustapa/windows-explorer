@@ -9,7 +9,11 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "bun test"
+    "test": "bun test",
+    "db:setup": "bun src/infrastructure/db/setup-db.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "bun src/infrastructure/db/seed.ts"
   },
   "dependencies": {
     "@windows-explorer/shared": "workspace:*",
@@ -20,6 +24,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/node": "^22.10.2",
     "drizzle-kit": "^0.29.1",
     "typescript": "^5.6.3"
   }

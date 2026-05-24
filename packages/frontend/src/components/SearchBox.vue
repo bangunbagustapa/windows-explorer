@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, computed, onMounted, onUnmounted } from "vue";
-import type { SearchResult } from "@windows-explorer/shared";
+import type { SearchResult, FolderTreeNode } from "@windows-explorer/shared";
 import { api } from "../api/client";
 import { useExplorerStore } from "../stores/explorer";
 import { UiIcon, UiSpinner, UiEmptyState } from "../ui";
@@ -13,6 +13,7 @@ const loading = ref(false);
 const error = ref<string | null>(null);
 const isOpen = ref(false);
 const selectedIndex = ref(0);
+const folderTree = ref<FolderTreeNode[]>([]);
 
 async function search() {
   const trimmedQuery = query.value.trim();
@@ -35,20 +36,37 @@ async function search() {
   }
 }
 
+function buildFolderMap(tree: FolderTreeNode[], map: Map<string, number> = new Map(), currentPath: string[] = []): Map<string, number> {
+  for (const node of tree) {
+    const path = [...currentPath, node.name];
+    const pathString = path.join("/");
+    map.set(pathString, node.id);
+    
+    if (node.children.length > 0) {
+      buildFolderMap(node.children, map, path);
+    }
+  }
+  return map;
+}
+
 function handleSelect(result: SearchResult) {
   store.select(result.id);
-  store.expandAncestors(result.path, buildFolderMap());
+  const pathString = result.path.join("/");
+  const folderMap = buildFolderMap(folderTree.value);
+  store.expandAncestors(result.path, folderMap);
   query.value = "";
   isOpen.value = false;
 }
 
-function buildFolderMap(): Map<string, number> {
-  // Build a map of path -> id for ancestor expansion
-  // This is a simplified version - in production, you'd want to fetch this from the tree
-  const map = new Map<string, number>();
-  // For now, we'll rely on the tree component to handle expansion
-  return map;
-}
+// Load folder tree on mount for ancestor expansion
+onMounted(async () => {
+  try {
+    folderTree.value = await api.getTree();
+  } catch (err) {
+    console.error("Failed to load folder tree for search:", err);
+  }
+  document.addEventListener('click', handleClickOutside);
+});
 
 function handleKeyDown(event: KeyboardEvent) {
   if (!isOpen.value || results.value.length === 0) return;
@@ -92,10 +110,6 @@ function handleClickOutside(event: MouseEvent) {
     isOpen.value = false;
   }
 }
-
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside);

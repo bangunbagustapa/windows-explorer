@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FolderTree from "./components/FolderTree.vue";
 import SubfolderList from "./components/SubfolderList.vue";
+import SearchBox from "./components/SearchBox.vue";
 import { UiIcon } from "./ui";
 </script>
 
@@ -14,7 +15,7 @@ import { UiIcon } from "./ui";
           <h1 class="text-xl font-semibold text-neutral-900">Windows Explorer</h1>
         </div>
         <div class="w-64">
-          <slot name="search" />
+          <SearchBox />
         </div>
       </div>
     </header>

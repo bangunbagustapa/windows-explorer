@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { api } from "./api/client";
+import FolderTree from "./components/FolderTree.vue";
+import { UiIcon } from "./ui";
 </script>
 
 <template>
@@ -24,7 +24,7 @@ import { api } from "./api/client";
       <aside class="bg-white border-r border-neutral-200 overflow-y-auto">
         <div class="p-4">
           <h2 class="text-sm font-medium text-neutral-600 mb-3">Folders</h2>
-          <slot name="tree" />
+          <FolderTree />
         </div>
       </aside>
 

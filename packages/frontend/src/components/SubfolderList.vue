@@ -17,7 +17,7 @@ async function loadSubfolders() {
     error.value = null;
     
     if (store.selectedId === null) {
-      subfolders.value = await api.getRoots();
+      subfolders.value = [];
     } else {
       subfolders.value = await api.getChildren(store.selectedId);
     }
@@ -37,11 +37,6 @@ function handleDoubleClick(folder: FolderChild) {
 watch(() => store.selectedId, () => {
   loadSubfolders();
 });
-
-// Load on mount
-onMounted(() => {
-  loadSubfolders();
-});
 </script>
 
 <template>
@@ -52,12 +47,12 @@ onMounted(() => {
   <UiErrorState v-else-if="error" :message="error" class="text-sm" />
 
   <UiEmptyState 
-    v-else-if="subfolders.length === 0" 
-    :message="store.selectedId ? 'This folder is empty' : 'No folders found'" 
+    v-else-if="subfolders.length === 0 && store.selectedId" 
+    message="This folder is empty" 
     class="text-sm" 
   />
 
-  <div v-else class="grid grid-cols-4 gap-4">
+  <div v-else-if="subfolders.length > 0" class="grid grid-cols-4 gap-4">
     <div
       v-for="folder in subfolders"
       :key="folder.id"

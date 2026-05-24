@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FolderTree from "./components/FolderTree.vue";
+import SubfolderList from "./components/SubfolderList.vue";
 import { UiIcon } from "./ui";
 </script>
 
@@ -31,7 +32,7 @@ import { UiIcon } from "./ui";
       <!-- Right panel: subfolders grid -->
       <main class="bg-neutral-50 overflow-y-auto">
         <div class="p-6">
-          <slot name="content" />
+          <SubfolderList />
         </div>
       </main>
     </div>

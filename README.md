@@ -116,13 +116,15 @@ bun run dev
 
 ## Features
 
-- Monorepo structure using Bun workspaces
-- Openable/closable folders in left panel (Explorer-style)
-- Search function for folders by name
-- Custom in-house UI components
-- Service + repository layering pattern
-- SOLID principles applied to backend architecture
-- ORM integration with Drizzle
-- REST API with proper versioning, verbs, and status codes
-- Built on Bun runtime
-- Powered by Elysia framework
+- **Two-panel layout**: Left panel shows complete folder tree, right panel shows direct subfolders of selected folder
+- **Openable/closable folders**: Click chevron to expand/collapse folder hierarchy (Explorer-style)
+- **Folder selection**: Click folder to select and view its subfolders in right panel
+- **Search function**: Backend endpoint for searching folders by name with partial matching and breadcrumb paths
+- **Custom in-house UI components**: Built from scratch using Tailwind CSS (no third-party UI library)
+- **Service + repository layering**: Clean architecture with separation of concerns
+- **SOLID principles**: Dependency inversion, single responsibility, and open/closed principles applied
+- **ORM integration**: Drizzle ORM for type-safe database queries
+- **REST API standards**: Versioned endpoints (`/api/v1/`), proper HTTP methods, and status codes
+- **Bun runtime**: Fast JavaScript runtime for both backend and frontend
+- **Elysia framework**: Modern, type-safe web framework for backend
+- **Monorepo structure**: Shared TypeScript types between backend and frontend

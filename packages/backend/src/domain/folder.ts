@@ -1,4 +1,5 @@
 // Domain entities - pure types, zero dependencies
+import type { FolderTreeNode } from "@windows-explorer/shared";
 
 export type Folder = {
   id: number;
@@ -7,8 +8,5 @@ export type Folder = {
   createdAt: Date;
 };
 
-export type FolderTreeNode = {
-  id: number;
-  name: string;
-  children: FolderTreeNode[];
-};
+// Re-export from shared package for type consistency across backend and frontend
+export type { FolderTreeNode };

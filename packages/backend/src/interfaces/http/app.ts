@@ -39,5 +39,15 @@ export function createApp() {
     return folderController.getTree();
   });
 
+  // Root folders endpoint
+  app.get("/api/v1/folders/roots", async () => {
+    return folderController.getRoots();
+  });
+
+  // Direct children endpoint
+  app.get("/api/v1/folders/:id/children", async ({ params }) => {
+    return folderController.getChildren(params.id);
+  });
+
   return app;
 }

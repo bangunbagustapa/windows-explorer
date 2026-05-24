@@ -15,6 +15,10 @@ export class FolderService {
     return this.folderRepository.findChildren(parentId);
   }
 
+  async findById(id: number): Promise<Folder | null> {
+    return this.folderRepository.findById(id);
+  }
+
   async search(query: string, limit: number): Promise<Folder[]> {
     return this.folderRepository.search(query, limit);
   }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, onMounted } from "vue";
+import { watch, ref } from "vue";
 import type { FolderChild } from "@windows-explorer/shared";
 import { api } from "../api/client";
 import { useExplorerStore } from "../stores/explorer";

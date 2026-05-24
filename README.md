@@ -2,6 +2,8 @@
 
 A Windows Explorer–like delivered as a Bun-workspaces monorepo.
 
+<img width="1508" height="716" alt="Screenshot 2026-05-24 at 17 21 17" src="https://github.com/user-attachments/assets/27fe6150-4f88-4b0e-a781-260ef1beef40" />
+
 ## Stack
 
 - **Runtime**: Bun

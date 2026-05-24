@@ -23,6 +23,39 @@ export class FolderService {
     return this.folderRepository.search(query, limit);
   }
 
+  async searchWithPath(query: string, limit: number): Promise<Array<Folder & { path: string[] }>> {
+    const folders = await this.folderRepository.search(query, limit);
+    
+    // Compute path for each folder by walking up the parent chain
+    const results: Array<Folder & { path: string[] }> = [];
+    
+    for (const folder of folders) {
+      const path: string[] = [];
+      let current: Folder | null = folder;
+      
+      // Walk up the parent chain
+      while (current) {
+        path.unshift(current.name);
+        if (current.parentId === null) break;
+        current = await this.folderRepository.findById(current.parentId);
+      }
+      
+      results.push({ ...folder, path });
+    }
+    
+    // Sort by exact match first, then by path
+    const queryLower = query.toLowerCase();
+    results.sort((a, b) => {
+      const aExact = a.name.toLowerCase() === queryLower;
+      const bExact = b.name.toLowerCase() === queryLower;
+      if (aExact && !bExact) return -1;
+      if (!aExact && bExact) return 1;
+      return a.path.join('/').localeCompare(b.path.join('/'));
+    });
+    
+    return results;
+  }
+
   // Pure function - builds nested tree from flat list in O(n)
   private buildTree(folders: Folder[]): FolderTreeNode[] {
     const map = new Map<number, FolderTreeNode>();

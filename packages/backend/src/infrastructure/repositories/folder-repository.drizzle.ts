@@ -2,7 +2,7 @@ import type { Folder } from "../../domain/folder";
 import type { FolderRepository } from "../../application/ports/folder-repository";
 import { folders } from "../db/schema";
 import { db } from "../db/client";
-import { eq, ilike, or, desc, sql, isNull } from "drizzle-orm";
+import { eq, ilike, or, isNull } from "drizzle-orm";
 
 // Repository implementation - only this file touches Drizzle
 // Implements the interface defined in application layer (Dependency Inversion Principle)
@@ -56,10 +56,7 @@ export class FolderRepositoryDrizzle implements FolderRepository {
           ilike(folders.name, `%${trimmedQuery}%`) // partial match
         )
       )
-      .orderBy(
-        desc(sql`CASE WHEN ${folders.name} ILIKE ${trimmedQuery} THEN 1 ELSE 0 END`), // exact match first
-        folders.name // then alphabetical
-      )
+      .orderBy(folders.name)
       .limit(limit);
     return result.map((row) => ({
       id: row.id,

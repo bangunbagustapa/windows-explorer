@@ -49,5 +49,10 @@ export function createApp() {
     return folderController.getChildren(params.id);
   });
 
+  // Search endpoint
+  app.get("/api/v1/folders/search", async ({ query }) => {
+    return folderController.search(query.q as string, query.limit as string);
+  });
+
   return app;
 }
